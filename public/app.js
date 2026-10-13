@@ -542,12 +542,16 @@ function hidePlotStatus() {
 async function checkStatus() {
   try {
     const res = await fetch('/api/status');
-    const { connected, ip } = await res.json();
+    const { connected, ready, state, ip } = await res.json();
     const badge = document.getElementById('status-badge');
     const text = document.getElementById('status-text');
-    if (connected) {
+    if (connected && ready) {
       badge.className = 'status-badge status-ok';
-      text.textContent = `Plotter ready`;
+      text.textContent = 'Plotter ready';
+    } else if (connected) {
+      // Reachable but not willing to move — usually Alarm after a limit trip.
+      badge.className = 'status-badge status-err';
+      text.textContent = `Plotter ${state || 'busy'}`;
     } else {
       badge.className = 'status-badge status-err';
       text.textContent = `Not found (${ip})`;
@@ -573,6 +577,8 @@ async function openConfig() {
     document.getElementById('cfg-penlift-z').value = cfg.penLiftZ ?? 0;
     document.getElementById('cfg-penlift').value = cfg.penLiftDelay ?? 400;
     document.getElementById('cfg-delay').value = cfg.cmdDelayMs;
+    document.getElementById('cfg-simplify').value = cfg.simplifyEps ?? 0.004;
+    document.getElementById('cfg-camera').value = cfg.cameraUrl ?? '';
   } catch {}
   document.getElementById('config-modal').classList.remove('hidden');
 }
@@ -592,6 +598,8 @@ async function saveConfig() {
     penLiftZ:     Number(document.getElementById('cfg-penlift-z').value),
     penLiftDelay: Number(document.getElementById('cfg-penlift').value),
     cmdDelayMs:   Number(document.getElementById('cfg-delay').value),
+    simplifyEps:  Number(document.getElementById('cfg-simplify').value),
+    cameraUrl:    document.getElementById('cfg-camera').value.trim(),
   };
   try {
     await fetch('/api/config', {

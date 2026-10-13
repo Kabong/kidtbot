@@ -4,7 +4,10 @@
   "description": "Kid-friendly web UI for MidTBot ESP32 pen plotter",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "preview": "node tools/preview.js",
+    "watch": "node tools/watch.js",
+    "plot": "node tools/plot.js"
   },
   "dependencies": {
     "express": "^4.18.0",

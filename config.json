@@ -8,5 +8,7 @@
   "moveSpeed": 3000,
   "cmdDelayMs": 350,
   "penLiftDelay": 400,
-  "penLiftZ": 3
+  "penLiftZ": 3,
+  "simplifyEps": 0.004,
+  "cameraUrl": ""
 }
