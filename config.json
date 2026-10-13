@@ -1,0 +1,12 @@
+{
+  "esp32Ip": "192.168.1.135",
+  "plotWidth": 65,
+  "plotHeight": 45,
+  "penDownCmd": "M3 S90",
+  "penUpCmd": "M5",
+  "drawSpeed": 800,
+  "moveSpeed": 3000,
+  "cmdDelayMs": 350,
+  "penLiftDelay": 400,
+  "penLiftZ": 3
+}

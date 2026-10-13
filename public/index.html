@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Draw & Plot!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>🖊️ Draw &amp; Plot!</h1>
+    <div id="status-badge" class="status-badge status-unknown">
+      <span id="status-dot" class="status-dot"></span>
+      <span id="status-text">Checking...</span>
+    </div>
+    <button class="gear-btn" onclick="openConfig()" title="Settings">⚙️</button>
+  </header>
+
+  <!-- Tab bar -->
+  <nav class="tab-bar">
+    <button class="tab-btn active" id="tab-draw" onclick="switchTab('draw')">🖌️ Draw</button>
+    <button class="tab-btn" id="tab-shapes" onclick="switchTab('shapes')">⭐ Shapes</button>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+
+    <!-- Draw tab -->
+    <div id="panel-draw" class="panel active">
+      <div class="canvas-wrapper">
+        <canvas id="drawing-canvas"></canvas>
+      </div>
+      <div class="draw-tools">
+        <div class="tool-group">
+          <span class="tool-label">Brush:</span>
+          <button class="brush-btn active" data-size="4" onclick="setBrush(4)"><span style="width:8px;height:8px"></span></button>
+          <button class="brush-btn" data-size="8" onclick="setBrush(8)"><span style="width:14px;height:14px"></span></button>
+          <button class="brush-btn" data-size="14" onclick="setBrush(14)"><span style="width:22px;height:22px"></span></button>
+        </div>
+        <div class="tool-group">
+          <button class="tool-btn undo-btn" onclick="undoStroke()" title="Undo">↩️ Undo</button>
+          <button class="tool-btn clear-btn" onclick="clearCanvas()" title="Clear">🗑️ Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shapes tab -->
+    <div id="panel-shapes" class="panel">
+      <div class="shapes-grid" id="shapes-grid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom action bar -->
+  <div class="action-bar">
+    <div id="plot-status" class="plot-status hidden"></div>
+    <div class="action-buttons">
+      <button id="stop-btn" class="stop-btn hidden" onclick="stopPlot()">⏹ Stop</button>
+      <button id="plot-btn" class="plot-btn" onclick="startPlot()">🖨️ DRAW IT!</button>
+    </div>
+  </div>
+
+  <!-- Progress overlay -->
+  <div id="progress-overlay" class="progress-overlay hidden">
+    <div class="progress-card">
+      <div class="progress-spinner">🖊️</div>
+      <div class="progress-label">Drawing...</div>
+      <div class="progress-bar-wrap">
+        <div id="progress-bar" class="progress-bar" style="width:0%"></div>
+      </div>
+      <div id="progress-text" class="progress-text">0 / 0 lines</div>
+    </div>
+  </div>
+
+  <!-- Config modal -->
+  <div id="config-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>⚙️ Settings</h2>
+      <label>ESP32 IP address
+        <input type="text" id="cfg-ip" placeholder="e.g. 192.168.1.100">
+      </label>
+      <label>Plot width (mm)
+        <input type="number" id="cfg-width" min="1" max="500">
+      </label>
+      <label>Plot height (mm)
+        <input type="number" id="cfg-height" min="1" max="500">
+      </label>
+      <label>Pen down command
+        <input type="text" id="cfg-pendown" placeholder="e.g. M3 S90">
+      </label>
+      <label>Pen up command
+        <input type="text" id="cfg-penup" placeholder="e.g. M5">
+      </label>
+      <label>Draw speed (mm/min)
+        <input type="number" id="cfg-drawspeed" min="100" max="5000">
+      </label>
+      <label>Pen lift height Z (mm, 0 = disabled)
+        <input type="number" id="cfg-penlift-z" min="0" max="20" step="0.5">
+      </label>
+      <label>Pen lift delay (ms)
+        <input type="number" id="cfg-penlift" min="50" max="2000">
+      </label>
+      <label>Command delay (ms)
+        <input type="number" id="cfg-delay" min="50" max="2000">
+      </label>
+      <div class="modal-btns">
+        <button class="modal-save-btn" onclick="saveConfig()">💾 Save</button>
+        <button class="modal-cancel-btn" onclick="closeConfig()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

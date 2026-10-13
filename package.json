@@ -1,0 +1,13 @@
+{
+  "name": "midtbot-kids-ui",
+  "version": "1.0.0",
+  "description": "Kid-friendly web UI for MidTBot ESP32 pen plotter",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "axios": "^1.6.0"
+  }
+}

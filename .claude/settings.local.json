@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:esp3d.io)",
+      "WebFetch(domain:www.tindie.com)",
+      "Bash(npm install:*)",
+      "Bash(timeout 5 node server.js)"
+    ]
+  }
+}
